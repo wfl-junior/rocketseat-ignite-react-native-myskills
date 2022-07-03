@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  FlatList,
   Platform,
   SafeAreaView,
   StyleSheet,
@@ -81,9 +82,11 @@ export function Home() {
         My Skills
       </Text>
 
-      {mySkills.map(skill => (
-        <SkillCard key={skill.id} skill={skill.text} />
-      ))}
+      <FlatList
+        data={mySkills}
+        keyExtractor={skill => skill.id}
+        renderItem={({ item: skill }) => <SkillCard skill={skill.text} />}
+      />
     </SafeAreaView>
   );
 }
