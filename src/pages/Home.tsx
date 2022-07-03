@@ -92,7 +92,7 @@ export const Home: React.FC = () => {
         onChangeText={setNewSkill}
       />
 
-      <Button onPress={handleAddNewSkill} />
+      <Button title="Add" onPress={handleAddNewSkill} />
 
       <Text style={[styles.title, { marginTop: 50, marginBottom: 40 }]}>
         My Skills

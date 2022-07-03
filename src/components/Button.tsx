@@ -1,4 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 
 const styles = StyleSheet.create({
   button: {
@@ -15,12 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ButtonProps {
-  onPress: () => void;
+interface ButtonProps extends TouchableOpacityProps {
+  title?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ onPress }) => (
-  <TouchableOpacity style={styles.button} activeOpacity={0.7} onPress={onPress}>
-    <Text style={styles.text}>Add</Text>
+export const Button: React.FC<ButtonProps> = ({ title, ...props }) => (
+  <TouchableOpacity style={styles.button} activeOpacity={0.7} {...props}>
+    <Text style={styles.text}>{title}</Text>
   </TouchableOpacity>
 );
