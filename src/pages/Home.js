@@ -5,8 +5,9 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
 } from "react-native";
+import { Button } from "../components/Button";
+import { SkillCard } from "../components/SkillCard";
 
 const styles = StyleSheet.create({
   container: {
@@ -28,30 +29,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 7,
   },
-  button: {
-    backgroundColor: "#a370f7",
-    padding: 15,
-    borderRadius: 7,
-    alignItems: "center",
-    marginTop: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 17,
-    fontWeight: "bold",
-  },
-  buttonSkill: {
-    backgroundColor: "#1f1e25",
-    padding: 15,
-    borderRadius: 50,
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  textSkill: {
-    color: "white",
-    fontSize: 22,
-    fontWeight: "bold",
-  },
 });
 
 function* getIdGenerator() {
@@ -69,13 +46,21 @@ export function Home() {
   const [mySkills, setMySkills] = useState([]);
 
   function handleAddNewSkill() {
+    if (!newSkill) {
+      return;
+    }
+
+    const id = idGenerator.next().value;
+
     setMySkills(skills => [
       ...skills,
       {
-        id: idGenerator.next().value,
+        id: `${newSkill}:${id}`,
         text: newSkill,
       },
     ]);
+
+    setNewSkill("");
   }
 
   return (
@@ -90,26 +75,14 @@ export function Home() {
         onChangeText={setNewSkill}
       />
 
-      <TouchableOpacity
-        style={styles.button}
-        activeOpacity={0.7}
-        onPress={handleAddNewSkill}
-      >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableOpacity>
+      <Button onPress={handleAddNewSkill} />
 
       <Text style={[styles.title, { marginTop: 50, marginBottom: 40 }]}>
         My Skills
       </Text>
 
       {mySkills.map(skill => (
-        <TouchableOpacity
-          key={`${skill.text}:${skill.id}`}
-          style={styles.buttonSkill}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.textSkill}>{skill.text}</Text>
-        </TouchableOpacity>
+        <SkillCard key={skill.id} skill={skill.text} />
       ))}
     </SafeAreaView>
   );
