@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Platform,
   SafeAreaView,
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 7,
     alignItems: "center",
-    justifyContent: "center",
     marginTop: 20,
   },
   buttonText: {
@@ -40,22 +40,77 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
   },
+  buttonSkill: {
+    backgroundColor: "#1f1e25",
+    padding: 15,
+    borderRadius: 50,
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  textSkill: {
+    color: "white",
+    fontSize: 22,
+    fontWeight: "bold",
+  },
 });
 
-export const Home = () => (
-  <SafeAreaView style={styles.container}>
-    <Text style={styles.title}>Welcome, Wallace</Text>
+function* getIdGenerator() {
+  let id = 0;
 
-    <TextInput
-      style={styles.input}
-      placeholder="New Skill"
-      placeholderTextColor="#555"
-    />
+  while (true) {
+    yield ++id;
+  }
+}
 
-    <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-      <Text style={styles.buttonText}>Add</Text>
-    </TouchableOpacity>
+const idGenerator = getIdGenerator();
 
-    <Text style={[styles.title, { marginTop: 50 }]}>My Skills</Text>
-  </SafeAreaView>
-);
+export function Home() {
+  const [newSkill, setNewSkill] = useState("");
+  const [mySkills, setMySkills] = useState([]);
+
+  function handleAddNewSkill() {
+    setMySkills(skills => [
+      ...skills,
+      {
+        id: idGenerator.next().value,
+        text: newSkill,
+      },
+    ]);
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Welcome, Wallace Júnior</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="New Skill"
+        placeholderTextColor="#555"
+        value={newSkill}
+        onChangeText={setNewSkill}
+      />
+
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.7}
+        onPress={handleAddNewSkill}
+      >
+        <Text style={styles.buttonText}>Add</Text>
+      </TouchableOpacity>
+
+      <Text style={[styles.title, { marginTop: 50, marginBottom: 40 }]}>
+        My Skills
+      </Text>
+
+      {mySkills.map(skill => (
+        <TouchableOpacity
+          key={`${skill.text}:${skill.id}`}
+          style={styles.buttonSkill}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.textSkill}>{skill.text}</Text>
+        </TouchableOpacity>
+      ))}
+    </SafeAreaView>
+  );
+}
