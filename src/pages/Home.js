@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Platform,
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 7,
   },
+  greeting: {
+    color: "white",
+  },
 });
 
 function* getIdGenerator() {
@@ -45,6 +48,23 @@ const idGenerator = getIdGenerator();
 export function Home() {
   const [newSkill, setNewSkill] = useState("");
   const [mySkills, setMySkills] = useState([]);
+  const [greeting, setGreeting] = useState("");
+
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+
+    setGreeting(() => {
+      if (currentHour < 12) {
+        return "Good morning";
+      }
+
+      if (currentHour < 18) {
+        return "Good afternoon";
+      }
+
+      return "Good evening";
+    });
+  }, []);
 
   function handleAddNewSkill() {
     if (!newSkill) {
@@ -67,6 +87,7 @@ export function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Welcome, Wallace Júnior</Text>
+      <Text style={styles.greeting}>{greeting}!</Text>
 
       <TextInput
         style={styles.input}
