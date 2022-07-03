@@ -79,6 +79,12 @@ export const Home: React.FC = () => {
     setNewSkill("");
   }
 
+  function handleDeleteSkill(id: Skill["id"]) {
+    setMySkills(skills => {
+      return skills.filter(skill => skill.id !== id);
+    });
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Welcome, Wallace Júnior</Text>
@@ -101,7 +107,12 @@ export const Home: React.FC = () => {
       <FlatList
         data={mySkills}
         keyExtractor={skill => skill.id}
-        renderItem={({ item: skill }) => <SkillCard skill={skill.name} />}
+        renderItem={({ item: skill }) => (
+          <SkillCard
+            skill={skill.name}
+            onPress={() => handleDeleteSkill(skill.id)}
+          />
+        )}
       />
     </SafeAreaView>
   );

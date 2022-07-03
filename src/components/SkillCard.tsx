@@ -1,4 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 
 const styles = StyleSheet.create({
   button: {
@@ -15,12 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-interface SkillCardProps {
+interface SkillCardProps extends TouchableOpacityProps {
   skill: string;
 }
 
-export const SkillCard: React.FC<SkillCardProps> = ({ skill }) => (
-  <TouchableOpacity style={styles.button}>
+export const SkillCard: React.FC<SkillCardProps> = ({ skill, ...props }) => (
+  <TouchableOpacity style={styles.button} {...props}>
     <Text style={styles.text}>{skill}</Text>
   </TouchableOpacity>
 );
