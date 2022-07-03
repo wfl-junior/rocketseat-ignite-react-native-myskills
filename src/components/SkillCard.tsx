@@ -15,10 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export function SkillCard({ skill }) {
-  return (
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.text}>{skill}</Text>
-    </TouchableOpacity>
-  );
+interface SkillCardProps {
+  skill: string;
 }
+
+export const SkillCard: React.FC<SkillCardProps> = ({ skill }) => (
+  <TouchableOpacity style={styles.button}>
+    <Text style={styles.text}>{skill}</Text>
+  </TouchableOpacity>
+);

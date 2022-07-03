@@ -15,14 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Button({ onPress }) {
-  return (
-    <TouchableOpacity
-      style={styles.button}
-      activeOpacity={0.7}
-      onPress={onPress}
-    >
-      <Text style={styles.text}>Add</Text>
-    </TouchableOpacity>
-  );
+interface ButtonProps {
+  onPress: () => void;
 }
+
+export const Button: React.FC<ButtonProps> = ({ onPress }) => (
+  <TouchableOpacity style={styles.button} activeOpacity={0.7} onPress={onPress}>
+    <Text style={styles.text}>Add</Text>
+  </TouchableOpacity>
+);

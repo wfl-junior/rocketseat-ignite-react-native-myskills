@@ -35,19 +35,14 @@ const styles = StyleSheet.create({
   },
 });
 
-function* getIdGenerator() {
-  let id = 0;
-
-  while (true) {
-    yield ++id;
-  }
+interface Skill {
+  id: string;
+  name: string;
 }
 
-const idGenerator = getIdGenerator();
-
-export function Home() {
+export const Home: React.FC = () => {
   const [newSkill, setNewSkill] = useState("");
-  const [mySkills, setMySkills] = useState([]);
+  const [mySkills, setMySkills] = useState<Skill[]>([]);
   const [greeting, setGreeting] = useState("");
 
   useEffect(() => {
@@ -71,13 +66,13 @@ export function Home() {
       return;
     }
 
-    const id = idGenerator.next().value;
+    const id = Date.now().toString();
 
     setMySkills(skills => [
       ...skills,
       {
         id: `${newSkill}:${id}`,
-        text: newSkill,
+        name: newSkill,
       },
     ]);
 
@@ -106,8 +101,8 @@ export function Home() {
       <FlatList
         data={mySkills}
         keyExtractor={skill => skill.id}
-        renderItem={({ item: skill }) => <SkillCard skill={skill.text} />}
+        renderItem={({ item: skill }) => <SkillCard skill={skill.name} />}
       />
     </SafeAreaView>
   );
-}
+};
