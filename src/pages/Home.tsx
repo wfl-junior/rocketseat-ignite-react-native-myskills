@@ -87,7 +87,10 @@ export const Home: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome, Wallace Júnior</Text>
+      <Text testID="welcome" style={styles.title}>
+        Welcome, Wallace Júnior
+      </Text>
+
       <Text style={styles.greeting}>{greeting}!</Text>
 
       <TextInput

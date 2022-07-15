@@ -52,7 +52,7 @@ allprojects {
 
         // Detox
         maven {
-            // Artefados do Detox para o node_modules
+            // Artefatos do Detox para o node_modules
             url "$rootDir/../node_modules/detox/Detox-android"
         }
     }
