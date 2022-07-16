@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   FlatList,
   Platform,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Button } from "../components/Button";
 import { SkillCard } from "../components/SkillCard";
+import { getGreeting } from "../utils/getGreeting";
 
 const styles = StyleSheet.create({
   container: {
@@ -43,23 +44,6 @@ interface Skill {
 export const Home: React.FC = () => {
   const [newSkill, setNewSkill] = useState("");
   const [mySkills, setMySkills] = useState<Skill[]>([]);
-  const [greeting, setGreeting] = useState("");
-
-  useEffect(() => {
-    const currentHour = new Date().getHours();
-
-    setGreeting(() => {
-      if (currentHour < 12) {
-        return "Good morning";
-      }
-
-      if (currentHour < 18) {
-        return "Good afternoon";
-      }
-
-      return "Good evening";
-    });
-  }, []);
 
   function handleAddNewSkill() {
     if (!newSkill) {
@@ -85,6 +69,8 @@ export const Home: React.FC = () => {
     });
   }
 
+  const greeting = getGreeting();
+
   return (
     <SafeAreaView style={styles.container}>
       <Text testID="welcome" style={styles.title}>
@@ -99,6 +85,7 @@ export const Home: React.FC = () => {
         placeholderTextColor="#555"
         value={newSkill}
         onChangeText={setNewSkill}
+        onSubmitEditing={handleAddNewSkill}
       />
 
       <Button title="Add" onPress={handleAddNewSkill} />
