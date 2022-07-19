@@ -100,8 +100,10 @@ export const Home: React.FC = () => {
       </Text>
 
       <FlatList
+        testID="skills-flat-list"
         data={mySkills}
         keyExtractor={skill => skill.id}
+        keyboardShouldPersistTaps="never"
         renderItem={({ item: skill }) => (
           <SkillCard
             skill={skill.name}
