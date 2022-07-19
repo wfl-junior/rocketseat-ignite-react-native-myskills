@@ -80,6 +80,7 @@ export const Home: React.FC = () => {
       <Text style={styles.greeting}>{greeting}!</Text>
 
       <TextInput
+        testID="new-skill-input"
         style={styles.input}
         placeholder="New Skill"
         placeholderTextColor="#555"
@@ -88,7 +89,11 @@ export const Home: React.FC = () => {
         onSubmitEditing={handleAddNewSkill}
       />
 
-      <Button title="Add" onPress={handleAddNewSkill} />
+      <Button
+        testID="add-new-skill-button"
+        title="Add"
+        onPress={handleAddNewSkill}
+      />
 
       <Text style={[styles.title, { marginTop: 50, marginBottom: 40 }]}>
         My Skills
