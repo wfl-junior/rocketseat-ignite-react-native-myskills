@@ -16,6 +16,6 @@
     "noImplicitAny": true,
     "resolveJsonModule": true
   },
-  "include": ["index.tsx", "src"],
+  "include": ["src"],
   "exclude": ["node_modules", "metro.config.js"]
 }
