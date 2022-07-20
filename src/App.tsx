@@ -1,10 +1,15 @@
 import { Fragment, useEffect } from "react";
 import { StatusBar } from "react-native";
+import codePush from "react-native-code-push";
 import SplashScreen from "react-native-splash-screen";
 import { Home } from "./screens/Home";
 
-export const App = () => {
+const AppComponent: React.FC = () => {
   useEffect(() => {
+    codePush.sync({
+      installMode: codePush.InstallMode.IMMEDIATE,
+    });
+
     SplashScreen.hide();
   }, []);
 
@@ -15,3 +20,7 @@ export const App = () => {
     </Fragment>
   );
 };
+
+export const App = codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+})(AppComponent);
