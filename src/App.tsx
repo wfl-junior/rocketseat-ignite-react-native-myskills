@@ -6,7 +6,7 @@ import SplashScreen from "react-native-splash-screen";
 import { Home } from "./screens/Home";
 
 Sentry.init({
-  dsn: "https://a40fe8d16faf41adb97321c3a7e9f202@o1327587.ingest.sentry.io/6588944",
+  dsn: process.env.SENTRY_DSN,
   tracesSampleRate: 1.0,
   enableNative: false,
 });
